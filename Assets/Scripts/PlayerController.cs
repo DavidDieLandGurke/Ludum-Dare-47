@@ -20,8 +20,7 @@ public class PlayerController : MonoBehaviour
 
     private bool _onGround;
 
-    public Transform origin;
-    public float radius;
+    public CircleCollider2D groundCheck;
 
     public LayerMask ground;
 
@@ -55,7 +54,7 @@ public class PlayerController : MonoBehaviour
 
         _cooldown -= Time.deltaTime;
 
-        if (GetComponentInChildren<CircleCollider2D>().IsTouchingLayers(ground))
+        if (groundCheck.IsTouchingLayers(ground))
         {
             _onGround = true;
         }

@@ -56,6 +56,11 @@ public class PlayerController : MonoBehaviour
 
         if (groundCheck.IsTouchingLayers(ground))
         {
+            if(_onGround == false)
+            {
+                GetComponentInChildren<ParticleSystem>().Play();
+            }
+
             _onGround = true;
         }
         else

@@ -25,8 +25,13 @@ public class PlayerController : MonoBehaviour
 
     public LayerMask ground;
 
+    public GameObject particleSystemObject;
+
     public GameObject PauseCanvas;
     private bool _paused = false;
+
+    public AudioSource jumpAudio;
+    public AudioSource landingAudio;
 
     void Awake()
     {
@@ -64,7 +69,8 @@ public class PlayerController : MonoBehaviour
         {
             if(_onGround == false)
             {
-                GetComponentInChildren<ParticleSystem>().Play();
+                Destroy(Instantiate(particleSystemObject, new Vector3(transform.position.x, transform.position.y - 0.5f, 0), Quaternion.Euler(-90,0,0)), 0.3f);
+                landingAudio.Play();
             }
 
             _onGround = true;
@@ -79,6 +85,7 @@ public class PlayerController : MonoBehaviour
             if (_onGround)
             {
                 _rb.velocity = new Vector2(_rb.velocity.x, jumpSpeed);
+                jumpAudio.Play();
                 _cooldown = cooldownTime;
             }
             else if(_cooldown >= 0)
